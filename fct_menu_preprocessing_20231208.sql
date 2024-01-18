@@ -27,7 +27,7 @@ WITH fct_pizza AS (
   notes,
   --ACOS(-1) is the same as pi. GBQ doesn't have a built in PI() function.
   --This calculates the area of each pie.
-  CASE WHEN pizza_shape IN (LOWER('circle'),LOWER('round')) 
+  CASE WHEN LOWER(pizza_shape) IN ('circle','round') 
     THEN ACOS(-1)*POWER((CAST(SPLIT(pizza_size__in_, 'x')[SAFE_ORDINAL(1)] AS decimal))/2,2) 
     WHEN LOWER(pizza_shape) = 'ellipse' 
     THEN ACOS(-1)*CAST(SPLIT(pizza_size__in_, 'x')[SAFE_ORDINAL(1)] AS decimal)*CAST(SPLIT(pizza_size__in_, 'x')[SAFE_ORDINAL(2)] AS decimal)
