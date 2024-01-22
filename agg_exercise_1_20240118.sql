@@ -22,7 +22,7 @@ inner join `midcitybytheslice.midcitybytheslice.dim_restaurants` dr
 on fp.restaurant_id = dr.restaurant_id
 )
 
-select
+select distinct
 extract(year from menu_date) as menu_year,
 restaurant_id,
 zip_code,
@@ -32,3 +32,4 @@ case when avg(pizza_price) over (partition by extract(year from menu_date),resta
       when avg(pizza_price) over (partition by extract(year from menu_date),restaurant_id) > 12 AND avg(pizza_price) over (partition by extract(year from menu_date),restaurant_id) <= 21 then 'MED'
       when avg(pizza_price) over (partition by extract(year from menu_date),restaurant_id) > 21 then 'HIGH' end as price_group
 from pizza_data
+order by 1,5 desc
